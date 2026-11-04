@@ -33,6 +33,12 @@ Enable the local diagnostic panel from **Field Guide → Local diagnostics**, or
 
 Run the same steps on a second phone. If only one browser fails, compare the local diagnostic logs and browser versions; that indicates a browser/recognition-engine difference, not proof of faulty phone hardware.
 
+## Localized Guide and app sharing
+
+Build **v1.4.0-local-guide-share** localizes the complete Field Guide to the phone or computer's language. Serbian Guide text is built in; other supported device languages are translated online on first use and cached locally, with a backup translation relay. Language names also follow the device locale.
+
+Every completed translation includes **Share to app**. On supported phones and desktops it opens the operating system's native share menu, allowing the user to choose compatible installed programs such as Messages, WhatsApp, email, Notes, social apps, or workplace tools. If native sharing is unavailable, the translation is copied for pasting into another program.
+
 The built-in **Field Guide** explains how to use the app and presents the fictional Babel Fish brainwave theory in original satirical wording.
 
 For English translations, read-aloud prefers an installed British female voice and falls back gracefully when the device does not provide one.
