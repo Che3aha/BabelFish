@@ -2,6 +2,10 @@
 
 A modern installable translation app for GitHub Pages.
 
+The interface uses two simple screens: a welcome screen and a focused translator screen. Voice input stays active until the user taps **Stop & Translate**, and translated text is read aloud automatically by default.
+
+The built-in **Field Guide** explains how to use the app and presents the fictional Babel Fish brainwave theory in original satirical wording.
+
 ## Publish on GitHub Pages
 
 1. Create a new public GitHub repository.

@@ -1,4 +1,4 @@
-const VERSION="babel-fish-v4";
+const VERSION="babel-fish-v6";
 const FILES=["./","./index.html","./manifest.webmanifest","./icon-32.png","./icon-192.png","./icon-512.png","./icon-maskable-512.png","./apple-touch-icon.png"];
 self.addEventListener("install",event=>{event.waitUntil(caches.open(VERSION).then(cache=>cache.addAll(FILES)));self.skipWaiting()});
 self.addEventListener("activate",event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==VERSION).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
