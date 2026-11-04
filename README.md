@@ -40,6 +40,10 @@ Run the same steps on a second phone. If only one browser fails, compare the loc
 - Read aloud, replay, copy, and share use compact symbol buttons with accessible labels and tooltips.
 - Translation status badges and local diagnostics stay out of the normal interface.
 
+## Translation relay fix
+
+Build **v1.5.1-relay-fix** no longer treats `navigator.onLine` as proof that translation is unavailable. Some older phones and installed web apps report an incorrect offline state. Babel Fish now tries both online translation relays first, then falls back to an on-device language model or the emergency phrasebook. The common casual phrase **Kako si?** is also available in the offline phrasebook.
+
 ## Localized Guide and app sharing
 
 Build **v1.4.0-local-guide-share** localizes the complete Field Guide to the phone or computer's language. Serbian Guide text is built in; other supported device languages are translated online on first use and cached locally, with a backup translation relay. Language names also follow the device locale.
