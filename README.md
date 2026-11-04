@@ -10,6 +10,8 @@ If a previous Babel Fish build was mistaken for another installed app, choose **
 
 The interface uses two simple screens: a welcome screen and a focused translator screen. Voice input stays active until the user taps **Stop & Translate**, and translated text is read aloud automatically by default.
 
+The online relay supports more than 130 languages with true automatic source-language detection and a backup translation service. Language names and the main interface follow the phone or computer language; translated interface labels are cached after the first online load. Offline translation depends on language packs supplied by the browser/device, with a small emergency phrasebook as a final fallback.
+
 The built-in **Field Guide** explains how to use the app and presents the fictional Babel Fish brainwave theory in original satirical wording.
 
 For English translations, read-aloud prefers an installed British female voice and falls back gracefully when the device does not provide one.
