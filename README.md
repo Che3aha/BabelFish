@@ -59,6 +59,8 @@ Build **v1.6.0-install-ready** adds:
 - a GitHub Pages-compatible Share Target so supported devices can share text into Babel Fish;
 - clearer language explaining that 130+ languages require online translation, while offline coverage depends on downloaded device models and essential phrases.
 
+Build **v1.6.1-compact-ui** simplifies the translator header with an arrow-only return control, removes the online/offline badge, makes the Input and Output language selectors more compact, and changes the landing-page organism label and warning to Babel Fish yellow.
+
 ## Localized Guide and app sharing
 
 Build **v1.4.0-local-guide-share** localizes the complete Field Guide to the phone or computer's language. Serbian Guide text is built in; other supported device languages are translated online on first use and cached locally, with a backup translation relay. Language names also follow the device locale.
