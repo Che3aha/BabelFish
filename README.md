@@ -4,6 +4,8 @@ A modern installable translation app for GitHub Pages.
 
 The welcome screen is titled **The Impossible Art of Being Understood** and carries the field warning: **WARNING: PROLONGED USE MAY LEAD TO UNDERSTANDING OTHER PEOPLE.**
 
+<img width="819" height="573" alt="image" src="https://github.com/user-attachments/assets/3abfef5c-1a14-427e-98b3-609bf4238d99" />
+
 ## Important app identity
 
 Babel Fish uses the permanent manifest ID `/babel-fish-universal-translator-app-id-v1`. Do not reuse this ID for another app. The unique ID prevents Chrome or Edge from treating Babel Fish as an update to another PWA hosted under the same GitHub Pages account.
