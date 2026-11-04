@@ -2,9 +2,17 @@
 
 A modern installable translation app for GitHub Pages.
 
+## Important app identity
+
+Babel Fish uses the permanent manifest ID `/babel-fish-universal-translator-app-id-v1`. Do not reuse this ID for another app. The unique ID prevents Chrome or Edge from treating Babel Fish as an update to another PWA hosted under the same GitHub Pages account.
+
+If a previous Babel Fish build was mistaken for another installed app, choose **Ignore** in the branding-update prompt. Remove only the incorrect installed desktop shortcut/app, reinstall the other app from its own published URL, publish this corrected Babel Fish package, and then install Babel Fish separately.
+
 The interface uses two simple screens: a welcome screen and a focused translator screen. Voice input stays active until the user taps **Stop & Translate**, and translated text is read aloud automatically by default.
 
 The built-in **Field Guide** explains how to use the app and presents the fictional Babel Fish brainwave theory in original satirical wording.
+
+For English translations, read-aloud prefers an installed British female voice and falls back gracefully when the device does not provide one.
 
 ## Publish on GitHub Pages
 

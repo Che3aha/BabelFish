@@ -183,9 +183,22 @@
     $("swapButton").addEventListener("click",()=>{if(source.value==="autodetect")return;const oldSource=source.value;source.value=target.value;target.value=oldSource;if(!output.classList.contains("empty")){const oldInput=input.value;input.value=output.textContent;output.textContent=oldInput}updateControls()});
     $("copyButton").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(output.textContent);$("copyButton").textContent="Copied";setTimeout(()=>$("copyButton").textContent="Copy",1400)}catch{setError("Copy was blocked. Select the translation and copy it manually.")}});
     let autoRead=true;
+    let availableVoices=[];
+    function refreshVoices(){availableVoices=speechSynthesis.getVoices()||[]}
+    if("speechSynthesis" in window){refreshVoices();speechSynthesis.addEventListener?.("voiceschanged",refreshVoices)}
+    function preferredReadingVoice(language){
+      refreshVoices();
+      if(language==="en"){
+        const british=availableVoices.filter(voice=>voice.lang.toLowerCase().replace("_","-").startsWith("en-gb"));
+        const femaleNames=/(sonia|libby|serena|kate|martha|stephanie|google uk english female|female)/i;
+        return british.find(voice=>femaleNames.test(voice.name))||british[0]||availableVoices.find(voice=>voice.lang.toLowerCase().startsWith("en")&&femaleNames.test(voice.name))||availableVoices.find(voice=>voice.lang.toLowerCase().startsWith("en"))||null;
+      }
+      const wanted=voiceCode(language).toLowerCase().replace("_","-");
+      return availableVoices.find(voice=>voice.lang.toLowerCase().replace("_","-")===wanted)||availableVoices.find(voice=>voice.lang.toLowerCase().split(/[-_]/)[0]===language.split("-")[0])||null;
+    }
     function readTranslation(){
       if(!("speechSynthesis" in window))return setError("Read-aloud is not supported by this browser.");
-      const button=$("speakButton"),utterance=new SpeechSynthesisUtterance(output.textContent);utterance.lang=voiceCode(target.value);
+      const button=$("speakButton"),utterance=new SpeechSynthesisUtterance(output.textContent),voice=preferredReadingVoice(target.value);utterance.lang=target.value==="en"?"en-GB":voiceCode(target.value);if(voice)utterance.voice=voice;
       button.textContent="🔊 Reading…";button.disabled=true;
       utterance.onend=utterance.onerror=()=>{button.textContent="Read again";button.disabled=false};
       speechSynthesis.cancel();speechSynthesis.speak(utterance);
