@@ -2,6 +2,8 @@
 
 A modern installable translation app for GitHub Pages.
 
+The welcome screen is titled **The Impossible Art of Being Understood** and carries the field warning: **WARNING: PROLONGED USE MAY LEAD TO UNDERSTANDING OTHER PEOPLE.**
+
 ## Important app identity
 
 Babel Fish uses the permanent manifest ID `/babel-fish-universal-translator-app-id-v1`. Do not reuse this ID for another app. The unique ID prevents Chrome or Edge from treating Babel Fish as an update to another PWA hosted under the same GitHub Pages account.
@@ -43,6 +45,19 @@ Run the same steps on a second phone. If only one browser fails, compare the loc
 ## Translation relay fix
 
 Build **v1.5.1-relay-fix** no longer treats `navigator.onLine` as proof that translation is unavailable. Some older phones and installed web apps report an incorrect offline state. Babel Fish now tries both online translation relays first, then falls back to an on-device language model or the emergency phrasebook. The common casual phrase **Kako si?** is also available in the offline phrasebook.
+
+## Installation-ready experience
+
+Build **v1.6.0-install-ready** adds:
+
+- device-specific installation help for iPhone, iPad, Android, and desktop browsers;
+- a pre-install compatibility check for translation, speech input, read-aloud, offline shell, and output language;
+- a first-run device check after installation without requesting microphone permission prematurely;
+- an update-ready banner with a safe restart action;
+- wide and mobile installation-preview screenshots;
+- long-press/right-click shortcuts for Speak, Type, and the Field Guide;
+- a GitHub Pages-compatible Share Target so supported devices can share text into Babel Fish;
+- clearer language explaining that 130+ languages require online translation, while offline coverage depends on downloaded device models and essential phrases.
 
 ## Localized Guide and app sharing
 

@@ -33,9 +33,12 @@
     @media(max-width:560px){.shell{padding-top:12px}.brand span{font-size:.86rem}.brand small{display:none}.net{display:none}.install,.guide-button{padding:8px 10px;font-size:.74rem}.hero{gap:28px;padding:34px 0 28px}.fish-card{min-height:260px;border-radius:30px}.fish-card img{max-height:230px}.controls{grid-template-columns:1fr auto 1fr;padding:14px;gap:8px}.selectbox select{font-size:.82rem;padding:11px 30px 11px 9px}.swap{width:40px;height:40px}.pane{padding:17px}.actionbar{align-items:flex-start;flex-direction:column}.translate{width:100%}footer{flex-direction:column}.translator{border-radius:24px}.guide-grid{grid-template-columns:1fr}}
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.fish-card img,.mic.live{animation:none!important}}
     .icon-btn{width:44px;height:44px;padding:0;display:inline-grid;place-items:center;font-size:1.15rem;line-height:1}.icon-btn.reading{animation:pulse 1.2s infinite}
+    .hero-warning{display:inline-flex;align-items:center;gap:8px;margin:18px 0 0;border:1px solid rgba(255,138,54,.45);border-radius:999px;background:rgba(255,138,54,.08);color:#ffc18f;padding:7px 11px;font:800 .68rem/1.25 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase}
+    .update-banner{position:fixed;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);width:min(620px,calc(100% - 28px));display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid var(--lime);border-radius:18px;background:#111a0d;color:var(--ink);padding:12px 14px;box-shadow:0 18px 60px #000}.update-banner button{border:0;border-radius:999px;background:var(--lime);color:#142000;padding:9px 14px;font-weight:900;cursor:pointer;white-space:nowrap}.checks{display:grid;gap:8px;margin:16px 0}.check{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:13px;padding:10px 12px;background:var(--space)}.check i{font-style:normal;color:var(--lime);font-weight:900}.check.warn i{color:var(--acid)}.check.bad i{color:var(--danger)}.check span{color:var(--ink);font-weight:800}.check small{display:block;color:var(--muted);font-weight:500;margin-top:2px}.install-preview{width:100%;border:1px solid var(--line);border-radius:14px;margin:10px 0 4px}.modal-actions{display:flex;gap:9px;margin-top:16px}.modal-actions .close{flex:1}.secondary{flex:1;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);font-weight:850;cursor:pointer}.fine-print{font-size:.78rem;color:var(--muted)}
   </style>
 </head>
 <body>
+  <div class="update-banner" id="updateBanner" role="status" hidden><span><strong>Update ready.</strong> Restart Babel Fish to load the newest fixes.</span><button id="restartApp" type="button">Restart app</button></div>
   <main class="shell">
     <header class="topbar">
       <div class="brand"><img src="icon-192.png" alt="Babel Fish"><span>BABEL FISH<small>Universal language relay</small></span></div>
@@ -45,7 +48,7 @@
     </header>
 
     <section class="screen active" id="welcomeScreen"><div class="hero">
-      <div><p class="eyebrow">Portable translation organism · Mark II</p><h1>Speak once.<span>Understand anywhere.</span></h1><p class="intro">A pocket-sized language relay for humans, aliens, and everyone between. Type or speak, choose a destination language, and receive a translation in seconds.</p></div>
+      <div><p class="eyebrow">Portable translation organism · Mark II</p><h1 data-i18n="The Impossible Art of Being Understood">The Impossible Art of Being Understood</h1><p class="intro">A pocket-sized language relay for humans, aliens, and everyone between. Type or speak, choose a destination language, and receive a translation in seconds.</p><p class="hero-warning" data-i18n="Warning: prolonged use may lead to understanding other people">⚠ Warning: prolonged use may lead to understanding other people</p></div>
       <div class="fish-card"><img src="icon-512.png" alt="Yellow and green Babel Fish character"></div>
       </div><button class="primary-launch" id="openTranslator" type="button" data-i18n="Open Translator">Open Translator →</button></section>
 
@@ -71,11 +74,12 @@
       <div class="actionbar"><button class="translate" id="translateButton" type="button" disabled data-i18n="Translate message">Translate message</button><span class="status" id="statusText" data-i18n="Waiting for input.">Waiting for input.</span></div>
       <p class="error" id="errorBox" role="alert" hidden></p>
       <details class="diagnostics" id="diagnosticPanel" hidden><input id="diagnosticToggle" type="checkbox" hidden><summary>Local diagnostics · <span id="diagnosticVersion"></span></summary><div class="diagnostic-controls"><span>No spoken text is stored in this log.</span><button id="clearDiagnostics" type="button">Clear log</button></div><pre id="diagnosticLog"></pre></details>
-    </div><p class="privacy"><strong>No account required.</strong> Full translation works online; downloaded browser language packs and essential phrases can work offline. Maximum 500 characters per request.</p></section>
+    </div><p class="privacy"><strong>No account required.</strong> Online translation supports 130+ languages. Offline translation is limited to downloaded device language models and essential phrases. Maximum 500 characters per request.</p></section>
     <footer><span>Field guide interface · Earth edition</span><span>Babel Fish BF–42 · <b id="appVersion"></b></span></footer>
   </main>
 
-  <dialog id="installDialog"><div class="modal"><h2>Install Babel Fish</h2><div id="installInstructions"></div><button class="close" id="closeInstall" type="button">Got it</button></div></dialog>
+  <dialog id="installDialog"><div class="modal"><h2>Install Babel Fish</h2><div id="installInstructions"></div><div class="modal-actions"><button class="secondary" id="closeInstall" type="button">Not now</button><button class="close" id="confirmInstall" type="button">Continue</button></div></div></dialog>
+  <dialog id="setupDialog"><div class="modal"><h2 id="setupTitle">Babel Fish is ready</h2><p id="setupIntro">A quick pre-flight check before the fish attempts interplanetary diplomacy.</p><div class="checks" id="setupChecks"></div><p class="fine-print">Microphone permission is requested only when you press Speak. Spoken text is not stored by Babel Fish.</p><button class="close" id="closeSetup" type="button">Start translating</button></div></dialog>
   <dialog id="guideDialog"><div class="modal">
     <p class="guide-kicker" data-i18n="Mostly harmless operating notes">Mostly harmless operating notes</p><h2 data-i18n="The Unreasonably Portable Field Guide">The Unreasonably Portable Field Guide</h2>
     <div class="guide-grid">
@@ -97,7 +101,7 @@
     const localLanguageName=code=>{try{return displayNames?.of(code)||code}catch{return code}};
     const LANGUAGES=[["Auto-detect","autodetect",""]].concat(LANGUAGE_CODES.map(code=>[localLanguageName(code),code,SPEECH_LOCALES[code]||code]));
     const $=id=>document.getElementById(id);
-    const APP_VERSION="1.5.1-relay-fix";
+    const APP_VERSION="1.6.0-install-ready";
     const source=$("sourceLanguage"),target=$("targetLanguage"),input=$("sourceText"),output=$("translatedText");
     const diagnosticLines=[];
     function diagnosticEnabled(){return $("diagnosticToggle")?.checked===true}
@@ -348,16 +352,49 @@
     function showScreen(name){const welcome=name==="welcome";$("welcomeScreen").classList.toggle("active",welcome);$("translatorScreen").classList.toggle("active",!welcome);scrollTo(0,0)}
     $("openTranslator").addEventListener("click",()=>showScreen("translator"));$("backToWelcome").addEventListener("click",()=>showScreen("welcome"));
 
-    let installPrompt=null;const installDialog=$("installDialog");
-    addEventListener("beforeinstallprompt",event=>{event.preventDefault();installPrompt=event;$("installButton").textContent="Install app"});
-    addEventListener("appinstalled",()=>{$("installButton").textContent="Installed";installPrompt=null});
+    const installedMode=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+    const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1;
+    const isAndroid=/Android/i.test(navigator.userAgent);let installPrompt=null;const installDialog=$("installDialog");
+    const localeText=(en,sr)=>deviceLanguage==="sr"?sr:en;
+    async function relayAvailable(){
+      const limited=promise=>Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(new Error("timeout")),4500))]);
+      try{await limited(googleTranslation("Hello","en","en"));return true}catch{try{await limited(memoryTranslation("Hello","en","en"));return true}catch{return false}}
+    }
+    async function serviceWorkerReady(){if(!("serviceWorker" in navigator))return false;try{await Promise.race([navigator.serviceWorker.ready,new Promise((_,reject)=>setTimeout(()=>reject(new Error("timeout")),2500))]);return true}catch{return false}}
+    async function compatibilityChecks(){
+      const [relay,shell]=await Promise.all([relayAvailable(),serviceWorkerReady()]);
+      return [
+        {state:relay?"good":"warn",label:localeText("Translation relay","Prevodilački relej"),detail:relay?localeText("Online translation is reachable.","Onlajn prevod je dostupan."):localeText("Not reachable now; try another network. Offline tools remain available.","Trenutno nije dostupan; pokušajte drugu mrežu. Oflajn alati ostaju dostupni.")},
+        {state:Recognition?"good":"warn",label:localeText("Voice input","Glasovni unos"),detail:Recognition?localeText("Speech recognition is supported.","Prepoznavanje govora je podržano."):localeText("This browser requires typed input.","Ovaj pregledač zahteva kucani unos.")},
+        {state:"speechSynthesis" in self?"good":"warn",label:localeText("Read aloud","Čitanje naglas"),detail:"speechSynthesis" in self?localeText("Device speech is available; installed voices determine languages.","Govor uređaja je dostupan; instalirani glasovi određuju jezike."):localeText("No device speech engine was detected.","Govorni sistem uređaja nije pronađen.")},
+        {state:shell?"good":"warn",label:localeText("Offline app shell","Oflajn aplikacija"),detail:shell?localeText("The interface is prepared for offline opening.","Interfejs je pripremljen za oflajn otvaranje."):localeText("The offline shell is still preparing; refresh once before installing.","Oflajn sadržaj se još priprema; osvežite stranicu pre instalacije.")},
+        {state:"good",label:localeText("Output language","Jezik izlaza"),detail:languageName(target.value)}
+      ];
+    }
+    function renderChecks(container,checks){container.innerHTML=checks.map(item=>`<div class="check ${item.state}"><i>${item.state==="good"?"✓":"!"}</i><div><span>${item.label}</span><small>${item.detail}</small></div></div>`).join("")}
+    addEventListener("beforeinstallprompt",event=>{event.preventDefault();installPrompt=event;$("installButton").textContent=localeText("Install app","Instaliraj aplikaciju")});
+    addEventListener("appinstalled",()=>{$("installButton").textContent=localeText("Installed","Instalirano");installPrompt=null;localStorage.removeItem("babel-fish-first-run-v1")});
     $("installButton").addEventListener("click",async()=>{
-      if(matchMedia("(display-mode: standalone)").matches||navigator.standalone){$("installInstructions").innerHTML="<p>Babel Fish is already installed on this device.</p>";installDialog.showModal();return}
-      if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;return}
-      const ios=/iPad|iPhone|iPod/.test(navigator.userAgent);$("installInstructions").innerHTML=ios?"<p>On iPhone or iPad:</p><ol><li>Open this page in Safari.</li><li>Tap the Share button.</li><li>Choose <strong>Add to Home Screen</strong>.</li></ol>":"<p>In Chrome or Microsoft Edge:</p><ol><li>Open the browser menu.</li><li>Choose <strong>Install Babel Fish</strong> or <strong>Install app</strong>.</li><li>Confirm the installation.</li></ol><p>If that option is missing, refresh the page once and try again.</p>";installDialog.showModal();
+      $("confirmInstall").hidden=true;$("installInstructions").innerHTML=`<p>${localeText("Running a quick compatibility check…","Pokrećem kratku proveru kompatibilnosti…")}</p>`;installDialog.showModal();
+      const checks=await compatibilityChecks(),holder=document.createElement("div");holder.className="checks";renderChecks(holder,checks);
+      let instructions="";
+      if(installedMode())instructions=`<p><strong>${localeText("Babel Fish is already installed on this device.","Babel Fish je već instaliran na ovom uređaju.")}</strong></p>`;
+      else if(isIOS)instructions=`<p><strong>${localeText("Install on iPhone or iPad","Instalacija na iPhone ili iPad")}</strong></p><ol><li>${localeText("Tap the browser Share button.","Dodirnite dugme za deljenje u pregledaču.")}</li><li>${localeText("Choose Add to Home Screen.","Izaberite Dodaj na početni ekran.")}</li><li>${localeText("Confirm Add.","Potvrdite Dodaj.")}</li></ol>`;
+      else if(installPrompt)instructions=`<p><strong>${localeText("Ready to install.","Spremno za instalaciju.")}</strong> ${localeText("Babel Fish will open in its own app window.","Babel Fish će se otvarati u svom prozoru aplikacije.")}</p>`;
+      else instructions=`<p><strong>${localeText("Install from the browser menu","Instalirajte iz menija pregledača")}</strong></p><ol><li>${localeText("Open the browser menu.","Otvorite meni pregledača.")}</li><li>${localeText(isAndroid?"Choose Install app or Add to Home screen.":"Choose Install Babel Fish or Install app.",isAndroid?"Izaberite Instaliraj aplikaciju ili Dodaj na početni ekran.":"Izaberite Instaliraj Babel Fish ili Instaliraj aplikaciju.")}</li><li>${localeText("Confirm installation.","Potvrdite instalaciju.")}</li></ol>`;
+      $("installInstructions").innerHTML=`<img class="install-preview" src="screenshot-wide.png" alt="Babel Fish app preview">${instructions}`;$("installInstructions").append(holder);
+      $("confirmInstall").hidden=installedMode()||isIOS||!installPrompt;$("confirmInstall").textContent=localeText("Install","Instaliraj");$("closeInstall").textContent=localeText("Close","Zatvori");
     });
+    $("confirmInstall").addEventListener("click",async()=>{if(!installPrompt)return installDialog.close();installDialog.close();const prompt=installPrompt;installPrompt=null;await prompt.prompt();await prompt.userChoice});
     $("closeInstall").addEventListener("click",()=>installDialog.close());installDialog.addEventListener("click",event=>{if(event.target===installDialog)installDialog.close()});
     const guideDialog=$("guideDialog");$("guideButton").addEventListener("click",()=>guideDialog.showModal());$("closeGuide").addEventListener("click",()=>guideDialog.close());guideDialog.addEventListener("click",event=>{if(event.target===guideDialog)guideDialog.close()});
+    const setupDialog=$("setupDialog");
+    async function showFirstRunSetup(force=false){
+      if(!force&&(!installedMode()||localStorage.getItem("babel-fish-first-run-v1")==="done"))return;
+      $("setupTitle").textContent=localeText("Babel Fish is ready","Babel Fish je spreman");$("setupIntro").textContent=localeText("A quick pre-flight check before the fish attempts interplanetary diplomacy.","Kratka provera pre nego što riba pokuša međuplanetarnu diplomatiju.");
+      $("setupChecks").innerHTML=`<div class="check"><i>…</i><div><span>${localeText("Checking this device","Proveravam ovaj uređaj")}</span></div></div>`;if(!setupDialog.open)setupDialog.showModal();renderChecks($("setupChecks"),await compatibilityChecks());
+    }
+    $("closeSetup").addEventListener("click",()=>{localStorage.setItem("babel-fish-first-run-v1","done");setupDialog.close();showScreen("translator")});
     const diagnosticToggle=$("diagnosticToggle"),diagnosticPanel=$("diagnosticPanel");
     const diagnosticsRequested=new URLSearchParams(location.search).get("diagnostics")==="1";diagnosticToggle.checked=diagnosticsRequested;diagnosticPanel.hidden=!diagnosticsRequested;
     function logBrowserDiagnostics(){diag("browser",{version:APP_VERSION,userAgent:navigator.userAgent,platform:navigator.platform||"unknown",language:navigator.language||"unknown",standalone:matchMedia("(display-mode: standalone)").matches||navigator.standalone===true,speechRecognition:Boolean(Recognition)})}
@@ -365,6 +402,7 @@
     $("clearDiagnostics").addEventListener("click",()=>{diagnosticLines.length=0;renderDiagnostics();diag("log cleared",{version:APP_VERSION})});
 
     const SERBIAN_UI={"Field Guide":"Vodič","Install app":"Instaliraj aplikaciju","Open Translator":"Otvori prevodilac","Back":"Nazad","Input language":"Ulazni jezik","Output language":"Izlazni jezik","Speak now":"Govori sada","Tap once to begin. Tap again when you are finished.":"Dodirnite jednom za početak, a ponovo kada završite.","Incoming message":"Dolazna poruka","Decoded message":"Prevedena poruka","Translate message":"Prevedi poruku","Waiting for input.":"Čekam unos.","Auto-detect":"Automatski prepoznaj","Share to app":"Podeli u aplikaciju","Mostly harmless operating notes":"Uglavnom bezopasna uputstva za rukovanje","The Unreasonably Portable Field Guide":"Nerazumno prenosivi vodič","How to operate it":"Kako se koristi","Choose the language you want to receive. Auto-detect will bravely guess the language arriving from the other end.":"Izaberite jezik na kom želite prevod. Automatsko prepoznavanje će hrabro pokušati da pogodi jezik koji stiže sa drugog kraja.","Press Speak now. Talk naturally; dramatic alien accents are optional and rarely helpful.":"Pritisnite Govori sada. Govorite prirodno; dramatični vanzemaljski akcenti su opcioni i retko pomažu.","Press Stop & Translate when your speech has reached a dignified conclusion.":"Pritisnite Zaustavi i prevedi kada vaš govor dostigne dostojanstven završetak.","The translation appears and reads itself aloud automatically, sparing you the burden of pressing yet another perfectly good button.":"Prevod se pojavljuje i automatski čita naglas, štedeći vas tereta pritiskanja još jednog sasvim dobrog dugmeta.","If the universe is offline, the app tries downloaded language packs and its emergency phrasebook.":"Ako je univerzum van mreže, aplikacija pokušava da koristi preuzete jezičke pakete i svoj rečnik za hitne slučajeve.","What is a Babel Fish?":"Šta je Babel Fish?","No fish is inserted anywhere. This is an important improvement for warranty purposes.":"Nijedna riba se nigde ne umeće. Ovo je važno poboljšanje radi garancije.","The brainwave theory":"Teorija moždanih talasa","Philosophical side effects":"Filozofske nuspojave","Connect with other apps":"Povezivanje sa drugim aplikacijama","After translating, choose Share to app. Babel Fish opens your device's native share menu so you can send the translation to compatible installed programs such as Messages, WhatsApp, email, Notes, social apps, or workplace tools. The available choices depend on the device.":"Posle prevođenja izaberite Podeli u aplikaciju. Babel Fish otvara sistemski meni za deljenje, pa prevod možete poslati u kompatibilne instalirane programe kao što su Poruke, WhatsApp, e-pošta, Beleške, društvene ili poslovne aplikacije. Dostupni izbori zavise od uređaja.","If native sharing is unavailable, the translation is copied so you can paste it into any program. Even galactic bureaucracy accepts copy and paste.":"Ako sistemsko deljenje nije dostupno, prevod se kopira kako biste ga nalepili u bilo koji program. Čak i galaktička birokratija prihvata kopiranje i lepljenje.","Local diagnostics":"Lokalna dijagnostika","Show diagnostics on the translator screen":"Prikaži dijagnostiku na ekranu prevodioca","Return to a slightly less confusing universe":"Povratak u malo manje zbunjujući univerzum"};
+    Object.assign(SERBIAN_UI,{"The Impossible Art of Being Understood":"Nemoguća umetnost da budete shvaćeni","Warning: prolonged use may lead to understanding other people":"Upozorenje: produžena upotreba može dovesti do razumevanja drugih ljudi"});
     const SERBIAN_GUIDE={
       "In the fictional lore, it is a small yellow fish worn in the ear as a biological universal translator. This app uses the considerably less squishy arrangement of speech recognition, language detection, translation software, and your phone's synthetic voice.":"U izmišljenoj priči, to je mala žuta riba koja se nosi u uhu kao biološki univerzalni prevodilac. Ova aplikacija koristi znatno manje gnjecav spoj prepoznavanja govora, otkrivanja jezika, prevodilačkog softvera i sintetičkog glasa vašeg telefona.",
       "The story proposes that the creature feeds on mental energy associated with speech. It then produces a telepathic pattern that matches the listener's own language pathways, making foreign words arrive as immediately understandable meaning.":"Priča tvrdi da se stvorenje hrani mentalnom energijom povezanom sa govorom. Zatim stvara telepatski obrazac koji odgovara jezičkim putevima slušaoca, pa strane reči stižu kao odmah razumljivo značenje.",
@@ -379,6 +417,7 @@
       if(element.id==="openTranslator")return `${text} →`;
       if(element.id==="backToWelcome")return `← ${text}`;
       if(element.id==="micButton")return `🎙 ${text}`;
+      if(element.classList.contains("hero-warning"))return `⚠ ${text}`;
       return text;
     }
     async function applyInterfaceLanguage(){
@@ -395,8 +434,25 @@
       if(saved["Auto-detect"])source.options[0].textContent=saved["Auto-detect"];
     }
 
-    if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
-    addEventListener("online",updateNetwork);addEventListener("offline",updateNetwork);updateNetwork();updateControls();applyInterfaceLanguage();
+    const launchParams=new URLSearchParams(location.search);
+    function applyLaunchIntent(){
+      const shared=[launchParams.get("text"),launchParams.get("url")].filter(Boolean).join(" ").trim();
+      if(launchParams.get("share")==="1"&&shared){input.value=shared.slice(0,500);showScreen("translator");updateControls();input.focus()}
+      else if(launchParams.get("mode")==="speak"){showScreen("translator");$("micButton").focus();setStatus(localeText("Tap Speak when you are ready.","Dodirnite Govori kada budete spremni."))}
+      else if(launchParams.get("mode")==="type"){showScreen("translator");input.focus()}
+      if(launchParams.get("guide")==="1"&&!guideDialog.open)guideDialog.showModal();
+    }
+    let refreshing=false;
+    function showUpdate(registration){if(!registration.waiting)return;$("updateBanner").hidden=false;$("restartApp").onclick=()=>{refreshing=true;registration.waiting.postMessage({type:"SKIP_WAITING"})}}
+    if("serviceWorker" in navigator)window.addEventListener("load",async()=>{
+      try{
+        const registration=await navigator.serviceWorker.register("./sw.js");showUpdate(registration);
+        registration.addEventListener("updatefound",()=>{const worker=registration.installing;worker?.addEventListener("statechange",()=>{if(worker.state==="installed"&&navigator.serviceWorker.controller)showUpdate(registration)})});
+        navigator.serviceWorker.addEventListener("controllerchange",()=>{if(refreshing)location.reload()});
+      }catch{}
+      setTimeout(()=>showFirstRunSetup(),350);
+    });
+    addEventListener("online",updateNetwork);addEventListener("offline",updateNetwork);updateNetwork();updateControls();applyInterfaceLanguage();applyLaunchIntent();
   </script>
 </body>
 </html>
