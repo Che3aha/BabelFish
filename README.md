@@ -1,7 +1,6 @@
 # Babel Fish Universal Translator
 
 A modern installable translation app for GitHub Pages.
-<img width="1230" height="680" alt="image" src="https://github.com/user-attachments/assets/b7fa1dc7-c58b-44ec-9cb4-20fe0bd51593" />
 
 ## Important app identity
 
@@ -16,6 +15,23 @@ The online relay supports more than 130 languages with true automatic source-lan
 Read-aloud waits for the device voice list before playback, uses a matching voice for Serbian, Arabic, and other target languages, and prefers a British female voice for English. If the device has no matching installed voice, the app tries an online multilingual voice and then the device default voice.
 
 Voice dictation automatically starts a fresh recognition session when a phone or browser ends a session, preserving the accumulated transcript until the full 500-character limit. Serbian, Croatian, and Bosnian translations use direct language pairs rather than an English intermediate step.
+
+## Speech-recognition diagnostics
+
+Build **v1.3.0-samsung-fix** tracks interim and final results by their browser result indexes. Interim text is replaced as it changes; each final result is committed once. Recognition sessions have unique IDs so stale events cannot modify a newer session. A narrowly scoped guard suppresses an exact result replayed immediately after an automatic restart, while intentional repetition within a recording or after a user stop/restart remains intact. Recognition is stopped before translation and read-aloud.
+
+Enable the local diagnostic panel from **Field Guide → Local diagnostics**, or add `?diagnostics=1` to the page URL. The in-memory log shows the build, browser information, recording starts/stops, session IDs, result indexes, final/interim state, and character counts. It does not log spoken text.
+
+### Phone test
+
+1. Confirm the footer and diagnostic panel show `v1.3.0-samsung-fix`.
+2. Say one sentence once and verify it appears once.
+3. Dictate several sentences with short pauses and confirm the counter can continue toward 500 characters.
+4. Intentionally say the same sentence twice; both copies should remain.
+5. Stop, translate, start a new recording, and verify the new session is separate.
+6. Let the translated result read aloud and confirm the microphone is no longer listening.
+
+Run the same steps on a second phone. If only one browser fails, compare the local diagnostic logs and browser versions; that indicates a browser/recognition-engine difference, not proof of faulty phone hardware.
 
 The built-in **Field Guide** explains how to use the app and presents the fictional Babel Fish brainwave theory in original satirical wording.
 

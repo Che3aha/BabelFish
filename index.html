@@ -26,6 +26,7 @@
     .controls{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;padding:20px}.selectbox label{display:block;color:var(--muted);font-size:.72rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin:0 0 7px 4px}.selectbox select{width:100%;background:var(--space);border:1px solid var(--line);color:var(--ink);border-radius:14px;padding:13px 40px 13px 14px;font-weight:800}.swap{align-self:end;width:46px;height:46px;border:1px solid var(--line);border-radius:50%;background:var(--panel2);color:var(--acid);font-size:1.25rem;cursor:pointer}.swap:hover{border-color:var(--acid);transform:rotate(180deg);transition:.2s}.swap:disabled{opacity:.35;cursor:not-allowed;transform:none}
     .voice-zone{padding:20px;border-top:1px solid var(--line);text-align:center;background:linear-gradient(180deg,rgba(247,223,30,.05),transparent)}.mic{width:min(430px,100%);min-height:82px;border:2px solid var(--acid);border-radius:24px;background:var(--acid);color:#171400;padding:16px 22px;font-weight:950;font-size:clamp(1.2rem,4vw,1.65rem);cursor:pointer;box-shadow:0 16px 36px rgba(247,223,30,.16)}.mic.live{background:var(--danger);border-color:var(--danger);color:#190407;animation:pulse 1.2s infinite}.voice-hint{display:block;margin-top:9px;color:var(--muted);font-size:.8rem}@keyframes pulse{50%{box-shadow:0 0 0 14px rgba(255,107,115,.14)}}.workarea{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}.pane{min-width:0;padding:20px}.pane+.pane{border-left:1px solid var(--line)}.pane-title{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:.74rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}.count{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:0;text-transform:none}.input-wrap{position:relative}.input-wrap textarea{display:block;width:100%;min-height:180px;resize:vertical;border:0;outline:0;background:transparent;color:var(--ink);font-size:clamp(1.2rem,2.3vw,1.65rem);line-height:1.45;padding:0 0 54px}.input-wrap textarea::placeholder{color:#647087}.clear{position:absolute;right:0;bottom:0;border:0;background:transparent;color:var(--muted);padding:9px;cursor:pointer}.output{min-height:180px;font-size:clamp(1.2rem,2.3vw,1.65rem);line-height:1.45;overflow-wrap:anywhere}.output.empty{color:#647087}.meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.tag{border:1px solid var(--line);border-radius:999px;padding:4px 8px;color:var(--muted);font:700 .68rem ui-monospace,SFMono-Regular,Consolas,monospace}.tag.good{color:var(--lime);border-color:#4d682c}.output-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}.mini-btn{border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);padding:8px 12px;font-weight:800;cursor:pointer}.mini-btn:hover{border-color:var(--acid);color:var(--acid)}.mini-btn[aria-pressed="true"]{border-color:var(--lime);color:var(--lime);background:rgba(168,230,61,.08)}
     .actionbar{display:flex;align-items:center;gap:12px;padding:18px 20px;border-top:1px solid var(--line)}.translate{border:0;border-radius:999px;background:var(--acid);color:#171400;padding:14px 24px;font-weight:950;cursor:pointer;box-shadow:0 10px 28px rgba(247,223,30,.15)}.translate:hover{transform:translateY(-1px)}.translate:disabled{opacity:.45;cursor:not-allowed;transform:none}.status{color:var(--muted);font-size:.85rem}.error{margin:0 20px 20px;padding:12px 14px;border:1px solid #66363d;border-radius:14px;background:#2a151b;color:#ffadb3;font-weight:750}.privacy{margin:14px 0 0;text-align:center;color:#798399;font-size:.76rem}.privacy strong{color:var(--lime)}
+    .diagnostics{margin:0 20px 20px;border:1px solid var(--line);border-radius:14px;background:#080d16;padding:12px}.diagnostics summary{cursor:pointer;color:var(--lime);font-weight:850}.diagnostics pre{max-height:220px;overflow:auto;white-space:pre-wrap;color:#b8c5d9;font:700 .7rem/1.45 ui-monospace,SFMono-Regular,Consolas,monospace}.diagnostic-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.diagnostic-controls button{border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);padding:7px 10px;cursor:pointer}
     dialog{width:min(520px,calc(100% - 28px));border:1px solid var(--line);border-radius:24px;background:var(--panel);color:var(--ink);padding:0;box-shadow:0 30px 100px #000}dialog::backdrop{background:rgba(0,0,0,.72);backdrop-filter:blur(6px)}.modal{padding:26px}.modal h2{margin:0 0 8px;font-size:1.7rem}.modal p,.modal li{color:var(--muted)}.modal ol{padding-left:22px}.close{width:100%;border:0;border-radius:999px;background:var(--acid);color:#171400;padding:12px;font-weight:900;cursor:pointer}#guideDialog{width:min(760px,calc(100% - 28px))}.guide-kicker{font:800 .7rem ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.16em;color:var(--lime);text-transform:uppercase}.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}.guide-card{border:1px solid var(--line);border-radius:18px;background:var(--space);padding:17px}.guide-card h3{margin:0 0 8px;color:var(--acid)}.guide-card p,.guide-card li{font-size:.91rem;line-height:1.55}.guide-card ol{margin-bottom:0}.guide-note{border-left:3px solid var(--orange);padding:10px 14px;background:rgba(255,138,54,.07);border-radius:0 12px 12px 0;color:var(--muted);font-size:.86rem}
     footer{display:flex;justify-content:space-between;gap:20px;color:#717b90;font:700 .68rem ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;margin-top:24px}
     @media(max-width:820px){.hero{grid-template-columns:1fr;padding-top:42px}.hero h1{max-width:10ch}.fish-card{min-height:310px}.fish-card img{max-height:280px}.workarea{grid-template-columns:1fr}.pane+.pane{border-left:0;border-top:1px solid var(--line)}}
@@ -69,8 +70,9 @@
       </div>
       <div class="actionbar"><button class="translate" id="translateButton" type="button" disabled data-i18n="Translate message">Translate message</button><span class="status" id="statusText" data-i18n="Waiting for input.">Waiting for input.</span></div>
       <p class="error" id="errorBox" role="alert" hidden></p>
+      <details class="diagnostics" id="diagnosticPanel" hidden><summary>Local diagnostics · <span id="diagnosticVersion"></span></summary><div class="diagnostic-controls"><span>No spoken text is stored in this log.</span><button id="clearDiagnostics" type="button">Clear log</button></div><pre id="diagnosticLog"></pre></details>
     </div><p class="privacy"><strong>No account required.</strong> Full translation works online; downloaded browser language packs and essential phrases can work offline. Maximum 500 characters per request.</p></section>
-    <footer><span>Field guide interface · Earth edition</span><span>Babel Fish BF–42</span></footer>
+    <footer><span>Field guide interface · Earth edition</span><span>Babel Fish BF–42 · <b id="appVersion"></b></span></footer>
   </main>
 
   <dialog id="installDialog"><div class="modal"><h2>Install Babel Fish</h2><div id="installInstructions"></div><button class="close" id="closeInstall" type="button">Got it</button></div></dialog>
@@ -81,6 +83,7 @@
       <section class="guide-card"><h3>What is a Babel Fish?</h3><p>In the fictional lore, it is a small yellow fish worn in the ear as a biological universal translator. This app uses the considerably less squishy arrangement of speech recognition, language detection, translation software, and your phone’s synthetic voice.</p><p>No fish is inserted anywhere. This is an important improvement for warranty purposes.</p></section>
       <section class="guide-card"><h3>The brainwave theory</h3><p>The story proposes that the creature feeds on mental energy associated with speech. It then produces a telepathic pattern that matches the listener’s own language pathways, making foreign words arrive as immediately understandable meaning.</p><p>In less alarming terms: speaker waveforms go in, a meaning pattern is inferred, and the listener receives something their brain can treat as familiar language. Real neuroscientists may now resume breathing.</p></section>
       <section class="guide-card"><h3>Philosophical side effects</h3><p>A universal translator appears extremely useful until everyone can understand exactly what everyone else is saying. According to the grand tradition of cosmic bureaucracy, removing misunderstandings does not remove arguments—it merely makes them impressively multilingual.</p><p>The fictional fish also inspires an absurd theological puzzle: a creature too convenient to be accidental becomes evidence in a debate that promptly ties itself into a logical knot. The app accepts no responsibility for existential crises caused before breakfast.</p></section>
+      <section class="guide-card"><h3>Local diagnostics</h3><p>For difficult phones and unusually enthusiastic microphones. Shows browser details, session starts and stops, result indexes, and final/interim status. Spoken text is not saved in the log.</p><label><input id="diagnosticToggle" type="checkbox"> Show diagnostics on the translator screen</label></section>
     </div>
     <p class="guide-note">Fictional field note: the Babel Fish and its brainwave explanation belong to the satirical science-fiction world created by Douglas Adams. The material here is an original summary and playful interface text, not real biology or neuroscience.</p>
     <button class="close" id="closeGuide" type="button">Return to a slightly less confusing universe</button>
@@ -94,7 +97,13 @@
     const localLanguageName=code=>{try{return displayNames?.of(code)||code}catch{return code}};
     const LANGUAGES=[["Auto-detect","autodetect",""]].concat(LANGUAGE_CODES.map(code=>[localLanguageName(code),code,SPEECH_LOCALES[code]||code]));
     const $=id=>document.getElementById(id);
+    const APP_VERSION="1.3.0-samsung-fix";
     const source=$("sourceLanguage"),target=$("targetLanguage"),input=$("sourceText"),output=$("translatedText");
+    const diagnosticLines=[];
+    function diagnosticEnabled(){return $("diagnosticToggle")?.checked===true}
+    function renderDiagnostics(){if($("diagnosticLog"))$("diagnosticLog").textContent=diagnosticLines.join("\n")}
+    function diag(event,details={}){if(!diagnosticEnabled())return;const safe={...details};delete safe.text;delete safe.transcript;diagnosticLines.push(`${new Date().toLocaleTimeString()} ${event} ${JSON.stringify(safe)}`);if(diagnosticLines.length>100)diagnosticLines.shift();renderDiagnostics()}
+    $("appVersion").textContent=`v${APP_VERSION}`;$("diagnosticVersion").textContent=`v${APP_VERSION}`;
     const languageName=code=>(LANGUAGES.find(item=>item[1]===code)||[code])[0];
     const voiceCode=code=>(LANGUAGES.find(item=>item[1]===code)||[])[2]||code;
     const escapeText=value=>{const node=document.createElement("textarea");node.innerHTML=value;return node.value};
@@ -200,6 +209,7 @@
     }
 
     async function translate(){
+      if(listening||recognition)haltRecognition("translation");
       const text=input.value.trim();if(!text)return;
       const button=$("translateButton");button.disabled=true;button.textContent="Translating…";setStatus("Contacting the language relay…");setError("");
       try{
@@ -267,6 +277,7 @@
     }
     async function readTranslation(manual=false){
       if(!("speechSynthesis" in window))return setError("Read-aloud is not supported by this browser.");
+      if(listening||recognition)haltRecognition("read-aloud");
       const button=$("speakButton"),text=cleanSpeechText(output.textContent),language=target.value;if(!text)return;
       setError("");button.textContent="🔊 Reading…";button.disabled=true;
       speechSynthesis.cancel();if(currentAudio){currentAudio.pause();currentAudio=null}
@@ -285,24 +296,50 @@
     $("autoReadButton").addEventListener("click",()=>{autoRead=!autoRead;$("autoReadButton").setAttribute("aria-pressed",String(autoRead));$("autoReadButton").textContent=autoRead?"🔊 Read aloud: On":"🔇 Read aloud: Off"});
     source.addEventListener("change",updateControls);target.addEventListener("change",updateControls);
 
-    const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;let recognition=null,listening=false,manualStop=false,finalTranscript="",recognitionRestartTimer=null;
+    const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+    let recognition=null,listening=false,manualStop=false,pendingTranslate=false,recognitionRestartTimer=null,sessionCounter=0,activeSessionId=0,sessionReason="user",committedTranscript="",sessionResults=new Map(),suppressedResultIndexes=new Set(),replayGuard=null;
     if(!Recognition){$("micButton").disabled=true;$("micButton").textContent="Voice unavailable"}
-    function finishRecognition(){
-      if(recognitionRestartTimer){clearTimeout(recognitionRestartTimer);recognitionRestartTimer=null}listening=false;recognition=null;
-      $("micButton").classList.remove("live");$("micButton").textContent="🎙 Speak now";$("voiceHint").textContent="Tap once to begin. Tap again when you are finished.";
-      setStatus(input.value.trim()?"Voice captured. Translating…":"Waiting for input.");if(input.value.trim())translate();
+    const joinSpeech=(...parts)=>parts.filter(Boolean).join(" ").replace(/\s+/g," ").trim();
+    function sessionText(includeInterim=true){
+      return [...sessionResults.entries()].sort((a,b)=>a[0]-b[0]).filter(([index,item])=>!suppressedResultIndexes.has(index)&&(includeInterim||item.final)).map(([,item])=>item.text).filter(Boolean).join(" ").trim();
     }
-    function startRecognitionSession(){
-      if(!listening||manualStop)return;const session=new Recognition();recognition=session;session.lang=source.value==="autodetect"?(navigator.language||"en-US"):voiceCode(source.value);session.interimResults=true;session.continuous=true;
-      session.onstart=()=>{$("micButton").classList.add("live");$("micButton").textContent="■ Stop & Translate";$("voiceHint").textContent="Listening continuously — up to 500 characters. Tap when finished.";setStatus("Listening…")};
-      session.onresult=event=>{let interim="";for(let i=event.resultIndex;i<event.results.length;i++){const words=event.results[i][0].transcript.trim();if(event.results[i].isFinal&&words)finalTranscript+=(finalTranscript?" ":"")+words;else if(words)interim+=(interim?" ":"")+words}const combined=(finalTranscript+(interim?" "+interim:"")).trim();input.value=combined.slice(0,500);updateControls();if(combined.length>=500){finalTranscript=input.value;manualStop=true;try{session.stop()}catch{finishRecognition()}}};
-      session.onerror=event=>{const fatal=["not-allowed","service-not-allowed","audio-capture"].includes(event.error);if(fatal){manualStop=true;listening=false;setError("Microphone input was unavailable. Check browser microphone permission or type your message.")}else if(event.error!=="no-speech")setStatus("Reconnecting to the microphone…")};
-      session.onend=()=>{if(manualStop||!listening){finishRecognition();return}setStatus("Still listening…");recognitionRestartTimer=setTimeout(startRecognitionSession,120)};
-      try{session.start()}catch{if(listening&&!manualStop)recognitionRestartTimer=setTimeout(startRecognitionSession,180)}
+    function renderRecognitionText(){input.value=joinSpeech(committedTranscript,sessionText(true)).slice(0,500);updateControls()}
+    function commitSession(includeInterim=true){const segment=sessionText(includeInterim);committedTranscript=joinSpeech(committedTranscript,segment).slice(0,500);input.value=committedTranscript;updateControls();return segment}
+    function resetListeningUI(){
+      $("micButton").classList.remove("live");$("micButton").textContent="🎙 Speak now";$("voiceHint").textContent="Tap once to begin. Tap again when you are finished.";
+    }
+    function haltRecognition(reason="manual"){
+      if(recognitionRestartTimer){clearTimeout(recognitionRestartTimer);recognitionRestartTimer=null}
+      if(activeSessionId)commitSession(true);const session=recognition;const stoppedSession=activeSessionId;activeSessionId=0;recognition=null;listening=false;manualStop=true;pendingTranslate=false;sessionResults=new Map();suppressedResultIndexes=new Set();
+      try{session?.abort()}catch{}resetListeningUI();diag("recognition halted",{reason,sessionId:stoppedSession,characters:input.value.length});
+    }
+    function finishListening(translateAfter=false){
+      if(recognitionRestartTimer){clearTimeout(recognitionRestartTimer);recognitionRestartTimer=null}listening=false;manualStop=true;recognition=null;activeSessionId=0;resetListeningUI();setStatus(input.value.trim()?"Voice captured. Translating…":"Waiting for input.");diag("recording stopped",{translateAfter,characters:input.value.length});if(translateAfter&&input.value.trim())translate();
+    }
+    function startRecognitionSession(reason="auto"){
+      if(!Recognition||!listening||manualStop||recognition)return;const session=new Recognition(),sessionId=++sessionCounter,sessionCreatedAt=Date.now();activeSessionId=sessionId;recognition=session;sessionReason=reason;sessionResults=new Map();suppressedResultIndexes=new Set();session.lang=source.value==="autodetect"?(navigator.language||"en-US"):voiceCode(source.value);session.interimResults=true;session.continuous=true;
+      session.onstart=()=>{if(sessionId!==activeSessionId)return;$("micButton").classList.add("live");$("micButton").textContent="■ Stop & Translate";$("voiceHint").textContent="Listening continuously — up to 500 characters. Tap when finished.";setStatus("Listening…");diag("recognition started",{sessionId,reason,language:session.lang})};
+      session.onresult=event=>{
+        if(sessionId!==activeSessionId||session!==recognition)return;
+        for(const index of [...sessionResults.keys()])if(index>=event.results.length)sessionResults.delete(index);
+        for(let i=event.resultIndex;i<event.results.length;i++){
+          const result=event.results[i],words=(result[0]?.transcript||"").trim();sessionResults.set(i,{text:words,final:result.isFinal});
+          if(reason==="auto"&&i===0&&result.isFinal&&replayGuard&&Date.now()-sessionCreatedAt<900&&Date.now()<replayGuard.expires&&normalizePhrase(words)===replayGuard.normalized){suppressedResultIndexes.add(i);diag("automatic replay suppressed",{sessionId,resultIndex:i,characters:words.length})}
+          diag("recognition result",{sessionId,resultIndex:i,eventResultIndex:event.resultIndex,final:result.isFinal,characters:words.length,totalResults:event.results.length});
+        }
+        renderRecognitionText();if(input.value.length>=500){manualStop=true;pendingTranslate=true;diag("character limit reached",{sessionId,characters:500});try{session.stop()}catch{commitSession(true);finishListening(true)}}
+      };
+      session.onerror=event=>{if(sessionId!==activeSessionId)return;const fatal=["not-allowed","service-not-allowed","audio-capture"].includes(event.error);diag("recognition error",{sessionId,error:event.error,fatal});if(fatal){manualStop=true;listening=false;pendingTranslate=false;setError("Microphone input was unavailable. Check browser microphone permission or type your message.")}else if(event.error!=="no-speech")setStatus("Reconnecting to the microphone…")};
+      session.onend=()=>{
+        if(sessionId!==activeSessionId||session!==recognition)return;const segment=commitSession(true);diag("recognition ended",{sessionId,reason,characters:segment.length,manualStop});recognition=null;activeSessionId=0;sessionResults=new Map();suppressedResultIndexes=new Set();
+        if(manualStop||!listening){const shouldTranslate=pendingTranslate;pendingTranslate=false;finishListening(shouldTranslate);return}
+        replayGuard=segment?{normalized:normalizePhrase(segment),expires:Date.now()+2500}:null;setStatus("Still listening…");recognitionRestartTimer=setTimeout(()=>{recognitionRestartTimer=null;startRecognitionSession("auto")},250);
+      };
+      try{session.start()}catch(error){diag("recognition start failed",{sessionId,error:error?.name||"unknown"});recognition=null;activeSessionId=0;if(listening&&!manualStop)recognitionRestartTimer=setTimeout(()=>{recognitionRestartTimer=null;startRecognitionSession("auto")},350)}
     }
     $("micButton").addEventListener("click",()=>{
-      if(!Recognition)return;if(listening){manualStop=true;try{recognition?.stop()}catch{finishRecognition()}return}
-      finalTranscript="";input.value="";updateControls();setError("");manualStop=false;listening=true;startRecognitionSession();
+      if(!Recognition)return;if(listening){manualStop=true;pendingTranslate=true;if(recognition){try{recognition.stop()}catch{commitSession(true);finishListening(true)}}else finishListening(true);return}
+      committedTranscript="";input.value="";updateControls();setError("");manualStop=false;pendingTranslate=false;listening=true;replayGuard=null;diag("recording requested",{language:source.value});startRecognitionSession("user");
     });
 
     function showScreen(name){const welcome=name==="welcome";$("welcomeScreen").classList.toggle("active",welcome);$("translatorScreen").classList.toggle("active",!welcome);scrollTo(0,0)}
@@ -318,6 +355,12 @@
     });
     $("closeInstall").addEventListener("click",()=>installDialog.close());installDialog.addEventListener("click",event=>{if(event.target===installDialog)installDialog.close()});
     const guideDialog=$("guideDialog");$("guideButton").addEventListener("click",()=>guideDialog.showModal());$("closeGuide").addEventListener("click",()=>guideDialog.close());guideDialog.addEventListener("click",event=>{if(event.target===guideDialog)guideDialog.close()});
+    const diagnosticToggle=$("diagnosticToggle"),diagnosticPanel=$("diagnosticPanel");
+    const diagnosticsRequested=new URLSearchParams(location.search).get("diagnostics")==="1"||localStorage.getItem("babel-fish-diagnostics")==="on";diagnosticToggle.checked=diagnosticsRequested;diagnosticPanel.hidden=!diagnosticsRequested;
+    function logBrowserDiagnostics(){diag("browser",{version:APP_VERSION,userAgent:navigator.userAgent,platform:navigator.platform||"unknown",language:navigator.language||"unknown",standalone:matchMedia("(display-mode: standalone)").matches||navigator.standalone===true,speechRecognition:Boolean(Recognition)})}
+    if(diagnosticsRequested)logBrowserDiagnostics();
+    diagnosticToggle.addEventListener("change",()=>{diagnosticPanel.hidden=!diagnosticToggle.checked;try{localStorage.setItem("babel-fish-diagnostics",diagnosticToggle.checked?"on":"off")}catch{}if(diagnosticToggle.checked)logBrowserDiagnostics()});
+    $("clearDiagnostics").addEventListener("click",()=>{diagnosticLines.length=0;renderDiagnostics();diag("log cleared",{version:APP_VERSION})});
 
     const SERBIAN_UI={"Field Guide":"Vodič","Install app":"Instaliraj aplikaciju","Open Translator":"Otvori prevodilac","Back":"Nazad","Input language":"Ulazni jezik","Output language":"Izlazni jezik","Speak now":"Govori sada","Tap once to begin. Tap again when you are finished.":"Dodirnite jednom za početak, a ponovo kada završite.","Incoming message":"Dolazna poruka","Decoded message":"Prevedena poruka","Translate message":"Prevedi poruku","Waiting for input.":"Čekam unos.","Auto-detect":"Automatski prepoznaj"};
     function decorateInterfaceText(element,text){
