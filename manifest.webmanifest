@@ -2,7 +2,7 @@
   "id":"/babel-fish-universal-translator-app-id-v1",
   "name":"Babel Fish Universal Translator",
   "short_name":"Babel Fish",
-  "description":"Speak or type, automatically detect the incoming language, translate into 130+ languages online, and read the result aloud.",
+  "description":"Speak or type, translate into 130+ languages online, optionally download supported on-device language models, and read the result aloud.",
   "start_url":"./?pwa=babel-fish",
   "scope":"./",
   "display":"standalone",
@@ -18,8 +18,8 @@
     {"src":"icon-maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
   ],
   "screenshots":[
-    {"src":"screenshot-wide.png","sizes":"1280x720","type":"image/png","form_factor":"wide","label":"Babel Fish voice and text translator"},
-    {"src":"screenshot-mobile.png","sizes":"720x1280","type":"image/png","form_factor":"narrow","label":"Babel Fish translator on a phone"}
+    {"src":"screenshot-wide.png","sizes":"1280x720","type":"image/png","form_factor":"wide","label":"Babel Fish landing page on desktop"},
+    {"src":"screenshot-mobile.png","sizes":"720x1280","type":"image/png","form_factor":"narrow","label":"Babel Fish landing page on a phone"}
   ],
   "shortcuts":[
     {"name":"Speak and translate","short_name":"Speak","description":"Open Babel Fish ready for voice input","url":"./?mode=speak","icons":[{"src":"icon-192.png","sizes":"192x192","type":"image/png"}]},

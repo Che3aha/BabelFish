@@ -4,8 +4,6 @@ A modern installable translation app for GitHub Pages.
 
 The welcome screen is titled **The Impossible Art of Being Understood** and carries the field warning: **WARNING: PROLONGED USE MAY LEAD TO UNDERSTANDING OTHER PEOPLE.**
 
-<img width="819" height="573" alt="image" src="https://github.com/user-attachments/assets/3abfef5c-1a14-427e-98b3-609bf4238d99" />
-
 ## Important app identity
 
 Babel Fish uses the permanent manifest ID `/babel-fish-universal-translator-app-id-v1`. Do not reuse this ID for another app. The unique ID prevents Chrome or Edge from treating Babel Fish as an update to another PWA hosted under the same GitHub Pages account.
@@ -28,7 +26,7 @@ Diagnostics are hidden during normal use. For troubleshooting only, add `?diagno
 
 ### Phone test
 
-1. Confirm the footer shows ` v1.6.1-compact-ui`. If troubleshooting, add `?diagnostics=1` and confirm the same version in the diagnostic panel.
+1. Confirm the footer shows `v1.5.0-simplified-ui`. If troubleshooting, add `?diagnostics=1` and confirm the same version in the diagnostic panel.
 2. Say one sentence once and verify it appears once.
 3. Dictate several sentences with short pauses and confirm the counter can continue toward 500 characters.
 4. Intentionally say the same sentence twice; both copies should remain.
@@ -62,6 +60,27 @@ Build **v1.6.0-install-ready** adds:
 - clearer language explaining that 130+ languages require online translation, while offline coverage depends on downloaded device models and essential phrases.
 
 Build **v1.6.1-compact-ui** simplifies the translator header with an arrow-only return control, removes the online/offline badge, makes the Input and Output language selectors more compact, and changes the landing-page organism label and warning to Babel Fish yellow.
+
+Build **v1.6.2-landing-preview** replaces the installation screenshots with the real Babel Fish landing experience instead of the translator workspace.
+
+## Can all 130+ languages work offline?
+
+Not with the current lightweight GitHub Pages package alone. Full offline translation requires translation models stored on the device. Providing every possible language pair would make the download extremely large and is impractical for older phones.
+
+The current app therefore uses a practical hybrid system:
+
+- **Online:** 130+ languages through translation relays.
+- **Offline:** essential built-in phrases plus language models already supplied or downloaded by a compatible browser or device.
+
+This release offers optional downloads through the browser's own on-device Translator API when that API and the selected pair are supported. It is more realistic to let users download only the languages they need than to install all 130+ languages at once.
+
+## Optional offline language packs
+
+Build **v1.7.0-offline-packs** adds an optional language-pack manager under the Field Guide. Online translation remains the default and retains the full 130+ language list. No model is downloaded automatically.
+
+The recommended offline collection is Serbian, Croatian, Bosnian, Macedonian, English, German, Greek, Hungarian, Portuguese, Italian, Spanish, French, Bulgarian, Romanian, Chinese Simplified, and Chinese Traditional. The app checks the browser's real on-device Translator API before offering a download, displays download progress, and only reports **Ready offline** after model creation succeeds. Availability varies by browser, device, and translation direction; unsupported pairs remain online-only.
+
+The Guide also includes a privacy-safe suggestion link to `snezolina@gmail.com`. The prepared email includes the app version, browser identifier, and interface language for troubleshooting, but never attaches spoken or translated text automatically.
 
 ## Localized Guide and app sharing
 
