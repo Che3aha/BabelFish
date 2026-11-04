@@ -191,7 +191,8 @@
     async function memoryTranslation(text,sourceCode,targetCode){
       const detected=await detectSourceForBackup(text,sourceCode);
       if(detected===targetCode)return {text,detected};
-      if(detected!=="en"&&targetCode!=="en"){
+      const directPairs=new Set(["sr:hr","hr:sr","bs:hr","hr:bs","sr:bs","bs:sr"]);
+      if(detected!=="en"&&targetCode!=="en"&&!directPairs.has(`${detected}:${targetCode}`)){
         const english=await memoryRequest(text,detected,"en");
         return {text:await memoryRequest(english,"en",targetCode),detected};
       }
@@ -284,16 +285,24 @@
     $("autoReadButton").addEventListener("click",()=>{autoRead=!autoRead;$("autoReadButton").setAttribute("aria-pressed",String(autoRead));$("autoReadButton").textContent=autoRead?"🔊 Read aloud: On":"🔇 Read aloud: Off"});
     source.addEventListener("change",updateControls);target.addEventListener("change",updateControls);
 
-    const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;let recognition=null,listening=false,manualStop=false,finalTranscript="";
+    const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;let recognition=null,listening=false,manualStop=false,finalTranscript="",recognitionRestartTimer=null;
     if(!Recognition){$("micButton").disabled=true;$("micButton").textContent="Voice unavailable"}
+    function finishRecognition(){
+      if(recognitionRestartTimer){clearTimeout(recognitionRestartTimer);recognitionRestartTimer=null}listening=false;recognition=null;
+      $("micButton").classList.remove("live");$("micButton").textContent="🎙 Speak now";$("voiceHint").textContent="Tap once to begin. Tap again when you are finished.";
+      setStatus(input.value.trim()?"Voice captured. Translating…":"Waiting for input.");if(input.value.trim())translate();
+    }
+    function startRecognitionSession(){
+      if(!listening||manualStop)return;const session=new Recognition();recognition=session;session.lang=source.value==="autodetect"?(navigator.language||"en-US"):voiceCode(source.value);session.interimResults=true;session.continuous=true;
+      session.onstart=()=>{$("micButton").classList.add("live");$("micButton").textContent="■ Stop & Translate";$("voiceHint").textContent="Listening continuously — up to 500 characters. Tap when finished.";setStatus("Listening…")};
+      session.onresult=event=>{let interim="";for(let i=event.resultIndex;i<event.results.length;i++){const words=event.results[i][0].transcript.trim();if(event.results[i].isFinal&&words)finalTranscript+=(finalTranscript?" ":"")+words;else if(words)interim+=(interim?" ":"")+words}const combined=(finalTranscript+(interim?" "+interim:"")).trim();input.value=combined.slice(0,500);updateControls();if(combined.length>=500){finalTranscript=input.value;manualStop=true;try{session.stop()}catch{finishRecognition()}}};
+      session.onerror=event=>{const fatal=["not-allowed","service-not-allowed","audio-capture"].includes(event.error);if(fatal){manualStop=true;listening=false;setError("Microphone input was unavailable. Check browser microphone permission or type your message.")}else if(event.error!=="no-speech")setStatus("Reconnecting to the microphone…")};
+      session.onend=()=>{if(manualStop||!listening){finishRecognition();return}setStatus("Still listening…");recognitionRestartTimer=setTimeout(startRecognitionSession,120)};
+      try{session.start()}catch{if(listening&&!manualStop)recognitionRestartTimer=setTimeout(startRecognitionSession,180)}
+    }
     $("micButton").addEventListener("click",()=>{
-      if(!Recognition)return;if(listening){manualStop=true;recognition.stop();return}
-      finalTranscript="";manualStop=false;recognition=new Recognition();recognition.lang=source.value==="autodetect"?(navigator.language||"en-US"):voiceCode(source.value);recognition.interimResults=true;recognition.continuous=true;
-      recognition.onstart=()=>{listening=true;$("micButton").classList.add("live");$("micButton").textContent="■ Stop & Translate";$("voiceHint").textContent="Listening continuously — take your time and tap when finished.";setStatus("Listening…")};
-      recognition.onresult=event=>{let interim="";for(let i=event.resultIndex;i<event.results.length;i++){const words=event.results[i][0].transcript;if(event.results[i].isFinal)finalTranscript+=(finalTranscript?" ":"")+words;else interim+=words}input.value=(finalTranscript+(interim?" "+interim:"")).trim().slice(0,500);updateControls()};
-      recognition.onerror=event=>{if(event.error!=="no-speech")setError("Microphone input was unavailable. Check browser microphone permission or type your message.")};
-      recognition.onend=()=>{if(listening&&!manualStop){try{recognition.start();return}catch{}}listening=false;$("micButton").classList.remove("live");$("micButton").textContent="🎙 Speak now";$("voiceHint").textContent="Tap once to begin. Tap again when you are finished.";setStatus(input.value.trim()?"Voice captured. Translating…":"Waiting for input.");if(manualStop&&input.value.trim())translate()};
-      try{recognition.start()}catch{setError("The microphone could not start. Try again or type your message.")}
+      if(!Recognition)return;if(listening){manualStop=true;try{recognition?.stop()}catch{finishRecognition()}return}
+      finalTranscript="";input.value="";updateControls();setError("");manualStop=false;listening=true;startRecognitionSession();
     });
 
     function showScreen(name){const welcome=name==="welcome";$("welcomeScreen").classList.toggle("active",welcome);$("translatorScreen").classList.toggle("active",!welcome);scrollTo(0,0)}

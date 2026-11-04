@@ -2,8 +2,6 @@
 
 A modern installable translation app for GitHub Pages.
 
-<img width="1175" height="675" alt="image" src="https://github.com/user-attachments/assets/ffd7bfac-d099-4f8d-9c5e-814a2e5472b4" />
-
 ## Important app identity
 
 Babel Fish uses the permanent manifest ID `/babel-fish-universal-translator-app-id-v1`. Do not reuse this ID for another app. The unique ID prevents Chrome or Edge from treating Babel Fish as an update to another PWA hosted under the same GitHub Pages account.
@@ -15,6 +13,8 @@ The interface uses two simple screens: a welcome screen and a focused translator
 The online relay supports more than 130 languages with true automatic source-language detection and a backup translation service. Language names and the main interface follow the phone or computer language; translated interface labels are cached after the first online load. Offline translation depends on language packs supplied by the browser/device, with a small emergency phrasebook as a final fallback.
 
 Read-aloud waits for the device voice list before playback, uses a matching voice for Serbian, Arabic, and other target languages, and prefers a British female voice for English. If the device has no matching installed voice, the app tries an online multilingual voice and then the device default voice.
+
+Voice dictation automatically starts a fresh recognition session when a phone or browser ends a session, preserving the accumulated transcript until the full 500-character limit. Serbian, Croatian, and Bosnian translations use direct language pairs rather than an English intermediate step.
 
 The built-in **Field Guide** explains how to use the app and presents the fictional Babel Fish brainwave theory in original satirical wording.
 
