@@ -12,6 +12,8 @@ The interface uses two simple screens: a welcome screen and a focused translator
 
 The online relay supports more than 130 languages with true automatic source-language detection and a backup translation service. Language names and the main interface follow the phone or computer language; translated interface labels are cached after the first online load. Offline translation depends on language packs supplied by the browser/device, with a small emergency phrasebook as a final fallback.
 
+Read-aloud waits for the device voice list before playback, uses a matching voice for Serbian, Arabic, and other target languages, and prefers a British female voice for English. If the device has no matching installed voice, the app tries an online multilingual voice and then the device default voice.
+
 The built-in **Field Guide** explains how to use the app and presents the fictional Babel Fish brainwave theory in original satirical wording.
 
 For English translations, read-aloud prefers an installed British female voice and falls back gracefully when the device does not provide one.

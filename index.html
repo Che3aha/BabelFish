@@ -227,26 +227,60 @@
     $("copyButton").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(output.textContent);$("copyButton").textContent="Copied";setTimeout(()=>$("copyButton").textContent="Copy",1400)}catch{setError("Copy was blocked. Select the translation and copy it manually.")}});
     let autoRead=true;
     let availableVoices=[];
-    function refreshVoices(){availableVoices=speechSynthesis.getVoices()||[]}
+    let currentAudio=null;
+    function refreshVoices(){availableVoices=speechSynthesis.getVoices()||[];return availableVoices}
     if("speechSynthesis" in window){refreshVoices();speechSynthesis.addEventListener?.("voiceschanged",refreshVoices)}
+    async function waitForVoices(){
+      if(refreshVoices().length)return availableVoices;
+      await new Promise(resolve=>{let finished=false;const done=()=>{if(finished)return;finished=true;speechSynthesis.removeEventListener?.("voiceschanged",done);resolve()};speechSynthesis.addEventListener?.("voiceschanged",done,{once:true});setTimeout(done,1500)});
+      return refreshVoices();
+    }
     function preferredReadingVoice(language){
       refreshVoices();
       if(language==="en"){
         const british=availableVoices.filter(voice=>voice.lang.toLowerCase().replace("_","-").startsWith("en-gb"));
         const femaleNames=/(sonia|libby|serena|kate|martha|stephanie|google uk english female|female)/i;
-        return british.find(voice=>femaleNames.test(voice.name))||british[0]||availableVoices.find(voice=>voice.lang.toLowerCase().startsWith("en")&&femaleNames.test(voice.name))||availableVoices.find(voice=>voice.lang.toLowerCase().startsWith("en"))||null;
+        return british.find(voice=>femaleNames.test(voice.name))||british[0]||availableVoices.find(voice=>voice.lang.toLowerCase().startsWith("en")&&femaleNames.test(voice.name))||availableVoices.find(voice=>voice.lang.toLowerCase().startsWith("en"))||availableVoices.find(voice=>voice.default)||availableVoices[0]||null;
       }
       const wanted=voiceCode(language).toLowerCase().replace("_","-");
       return availableVoices.find(voice=>voice.lang.toLowerCase().replace("_","-")===wanted)||availableVoices.find(voice=>voice.lang.toLowerCase().split(/[-_]/)[0]===language.split("-")[0])||null;
     }
-    function readTranslation(){
-      if(!("speechSynthesis" in window))return setError("Read-aloud is not supported by this browser.");
-      const button=$("speakButton"),utterance=new SpeechSynthesisUtterance(output.textContent),voice=preferredReadingVoice(target.value);utterance.lang=target.value==="en"?"en-GB":voiceCode(target.value);if(voice)utterance.voice=voice;
-      button.textContent="🔊 Reading…";button.disabled=true;
-      utterance.onend=utterance.onerror=()=>{button.textContent="Read again";button.disabled=false};
-      speechSynthesis.cancel();speechSynthesis.speak(utterance);
+    function cleanSpeechText(text){return text.normalize("NFC").replace(/[\u200B-\u200D\uFEFF]/g,"").replace(/\s+/g," ").trim()}
+    function speechChunks(text,max=180){
+      const words=text.split(/\s+/);const chunks=[];let current="";
+      for(const word of words){if(current&&`${current} ${word}`.length>max){chunks.push(current);current=word}else current+=(current?" ":"")+word}
+      if(current)chunks.push(current);return chunks;
     }
-    $("speakButton").addEventListener("click",readTranslation);
+    function playNativeSpeech(text,language,voice){
+      return new Promise((resolve,reject)=>{const utterance=new SpeechSynthesisUtterance(text);utterance.lang=voice?.lang||(language==="en"?"en-GB":voiceCode(language));if(voice)utterance.voice=voice;utterance.rate=1;utterance.pitch=1;utterance.onend=resolve;utterance.onerror=event=>reject(new Error(event.error||"Speech playback failed"));speechSynthesis.cancel();speechSynthesis.resume();setTimeout(()=>speechSynthesis.speak(utterance),80)});
+    }
+    async function playOnlineSpeech(text,language){
+      const ttsLanguage=language==="zh-TW"?"zh-TW":language==="zh-CN"?"zh-CN":language.split("-")[0];
+      for(const chunk of speechChunks(text)){
+        let played=false,lastError=null;
+        for(const host of ["translate.google.com","translate.google.co.uk"]){
+          try{await new Promise((resolve,reject)=>{const url=`https://${host}/translate_tts?ie=UTF-8&client=tw-ob&tl=${encodeURIComponent(ttsLanguage)}&ttsspeed=1&q=${encodeURIComponent(chunk)}`;currentAudio=new Audio(url);currentAudio.preload="auto";currentAudio.onended=resolve;currentAudio.onerror=()=>reject(new Error("Online voice is unavailable"));currentAudio.play().catch(reject)});played=true;break}catch(error){lastError=error}
+        }
+        if(!played)throw lastError||new Error("Online voice is unavailable");
+      }
+    }
+    async function readTranslation(manual=false){
+      if(!("speechSynthesis" in window))return setError("Read-aloud is not supported by this browser.");
+      const button=$("speakButton"),text=cleanSpeechText(output.textContent),language=target.value;if(!text)return;
+      setError("");button.textContent="🔊 Reading…";button.disabled=true;
+      speechSynthesis.cancel();if(currentAudio){currentAudio.pause();currentAudio=null}
+      await waitForVoices();const voice=preferredReadingVoice(language);const exactVoice=voice&&voice.lang.toLowerCase().split(/[-_]/)[0]===language.toLowerCase().split("-")[0];
+      try{
+        if(exactVoice||language==="en")await playNativeSpeech(text,language,voice);
+        else if(navigator.onLine!==false)await playOnlineSpeech(text,language);
+        else await playNativeSpeech(text,language,availableVoices.find(item=>item.default)||availableVoices[0]||null);
+        setError("");button.textContent="Read again";
+      }catch(error){
+        if(!manual&&error?.name==="NotAllowedError")button.textContent="🔊 Tap to hear";
+        else{try{await playNativeSpeech(text,language,availableVoices.find(item=>item.default)||availableVoices[0]||null);button.textContent="Read again";setError("")}catch{button.textContent="Read again";setError("This device has no working voice for the selected language. Connect to the internet or install that language's text-to-speech voice in the device settings, then tap Read again.")}}
+      }finally{button.disabled=false}
+    }
+    $("speakButton").addEventListener("click",()=>readTranslation(true));
     $("autoReadButton").addEventListener("click",()=>{autoRead=!autoRead;$("autoReadButton").setAttribute("aria-pressed",String(autoRead));$("autoReadButton").textContent=autoRead?"🔊 Read aloud: On":"🔇 Read aloud: Off"});
     source.addEventListener("change",updateControls);target.addEventListener("change",updateControls);
 
