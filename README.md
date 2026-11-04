@@ -1,6 +1,7 @@
 # Babel Fish Universal Translator
 
 A modern installable translation app for GitHub Pages.
+<img width="1230" height="680" alt="image" src="https://github.com/user-attachments/assets/b7fa1dc7-c58b-44ec-9cb4-20fe0bd51593" />
 
 ## Important app identity
 
