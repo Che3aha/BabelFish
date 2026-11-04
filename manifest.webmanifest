@@ -1,15 +1,15 @@
 {
-  "id": "/BebelFish/",
-  "name": "Babel Fish Translator",
-  "short_name": "Babel Fish",
-  "description": "Speak once and be understood everywhere.",
-  "start_url": "/BebelFish/",
-  "scope": "/BebelFish/",
-  "display": "standalone",
-  "orientation": "any",
-  "background_color": "#0b1020",
-  "theme_color": "#0b1020",
-  "icons": [
+  "id":"./",
+  "name":"Babel Fish Universal Translator",
+  "short_name":"Babel Fish",
+  "description":"A fast, friendly universal translator.",
+  "start_url":"./",
+  "scope":"./",
+  "display":"standalone",
+  "orientation":"any",
+  "background_color":"#080b12",
+  "theme_color":"#080b12",
+  "icons":[
     {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
     {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
     {"src":"icon-maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
