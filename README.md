@@ -18,13 +18,13 @@ Voice dictation automatically starts a fresh recognition session when a phone or
 
 ## Speech-recognition diagnostics
 
-Build **v1.3.0-samsung-fix** tracks interim and final results by their browser result indexes. Interim text is replaced as it changes; each final result is committed once. Recognition sessions have unique IDs so stale events cannot modify a newer session. A narrowly scoped guard suppresses an exact result replayed immediately after an automatic restart, while intentional repetition within a recording or after a user stop/restart remains intact. Recognition is stopped before translation and read-aloud.
+Build **v1.5.0-simplified-ui** retains the speech-recognition fixes that track interim and final results by their browser result indexes. Interim text is replaced as it changes; each final result is committed once. Recognition sessions have unique IDs so stale events cannot modify a newer session. A narrowly scoped guard suppresses an exact result replayed immediately after an automatic restart, while intentional repetition within a recording or after a user stop/restart remains intact. Recognition is stopped before translation and read-aloud.
 
-Enable the local diagnostic panel from **Field Guide → Local diagnostics**, or add `?diagnostics=1` to the page URL. The in-memory log shows the build, browser information, recording starts/stops, session IDs, result indexes, final/interim state, and character counts. It does not log spoken text.
+Diagnostics are hidden during normal use. For troubleshooting only, add `?diagnostics=1` to the page URL. The in-memory log shows the build, browser information, recording starts/stops, session IDs, result indexes, final/interim state, and character counts. It does not log spoken text.
 
 ### Phone test
 
-1. Confirm the footer and diagnostic panel show `v1.3.0-samsung-fix`.
+1. Confirm the footer shows `v1.5.0-simplified-ui`. If troubleshooting, add `?diagnostics=1` and confirm the same version in the diagnostic panel.
 2. Say one sentence once and verify it appears once.
 3. Dictate several sentences with short pauses and confirm the counter can continue toward 500 characters.
 4. Intentionally say the same sentence twice; both copies should remain.
@@ -32,6 +32,13 @@ Enable the local diagnostic panel from **Field Guide → Local diagnostics**, or
 6. Let the translated result read aloud and confirm the microphone is no longer listening.
 
 Run the same steps on a second phone. If only one browser fails, compare the local diagnostic logs and browser versions; that indicates a browser/recognition-engine difference, not proof of faulty phone hardware.
+
+## Simplified translator screen
+
+- Language selectors are labelled **Input** and **Output**.
+- The duplicate console heading has been removed.
+- Read aloud, replay, copy, and share use compact symbol buttons with accessible labels and tooltips.
+- Translation status badges and local diagnostics stay out of the normal interface.
 
 ## Localized Guide and app sharing
 
