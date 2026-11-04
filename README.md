@@ -28,7 +28,7 @@ Diagnostics are hidden during normal use. For troubleshooting only, add `?diagno
 
 ### Phone test
 
-1. Confirm the footer shows `v1.5.0-simplified-ui`. If troubleshooting, add `?diagnostics=1` and confirm the same version in the diagnostic panel.
+1. Confirm the footer shows ` v1.6.1-compact-ui`. If troubleshooting, add `?diagnostics=1` and confirm the same version in the diagnostic panel.
 2. Say one sentence once and verify it appears once.
 3. Dictate several sentences with short pauses and confirm the counter can continue toward 500 characters.
 4. Intentionally say the same sentence twice; both copies should remain.
